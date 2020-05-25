@@ -1,3 +1,4 @@
+#get data from source
 def get_data():
     file = open("animal2.txt","r")
 
@@ -30,6 +31,7 @@ def get_data():
     
     return train_data,test_data
 
+#groups data by label
 def separate_by_class(dataset):
     separated = dict()
     for i in range(len(dataset)):
@@ -40,6 +42,7 @@ def separate_by_class(dataset):
         separated[class_value].append(vector)
     return separated
 
+#computes the probabilities of each class label
 def get_class_probabilities(separated, train):
     class_probabilities = dict()
     for class_label in separated:
@@ -47,6 +50,7 @@ def get_class_probabilities(separated, train):
         
     return class_probabilities       
 
+#computes conditional probabilities of each feature given the class
 def get_class_cond_probabilities(test,rows):
     unique_f = [2,2,2,2,2,2,2,2,2,2,2,2,6,2,2,2]
     attr_prob =1.0
@@ -76,6 +80,7 @@ def cal_joint_probabilities(class_prob, class_cond_prob):
     
     return joint_prob
 
+#classify each row of the test data into a class label
 def naive_bayes(train, test):
     separated = separate_by_class(train)
     class_probabilities = get_class_probabilities(separated, train)
@@ -90,6 +95,7 @@ def naive_bayes(train, test):
 train, test = get_data()
 predictions =naive_bayes(train, test)
 
+#prints out the label predictions
 for i in predictions:
     print(i)
 
